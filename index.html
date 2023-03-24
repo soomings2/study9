@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>WISE PLATFORM AGENT</title>
+    <script type="text/javascript" src="/common/jquery.min.js"></script>
+    <script type="text/javascript" src="/common/js/jquery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="/common/js/jquery/ui/jquery-ui-1.9.2.custom.min.js"></script>
+    <script type="text/javascript" src="/common/js/jquery/ui/jquery.ui.datepicker-ko.js"></script>
+    <script type="text/javascript" src="/common/js/jquery/jquery.inputmask.min.js"></script>
+    <script type="text/javascript" src="/common/js/jquery/jquery.cookie.js"></script>
+
+    <style>
+        * {box-sizing:border-box;}
+        html,body,form{
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        .login_bg{background: linear-gradient(45deg, #e4e1ee, #ffffff);}
+        .login_logo{width: 25%; float: right; margin-right: 15px; margin-top: 5px;}
+        .login_page {text-align:center;
+            width: 100%;
+            height: 100%;
+            position: relative;}
+        .login_main{
+            position: absolute;
+            width: 1720px;
+            top: 50%;
+            left: 50%;
+            display: inline-block;
+            transform: translate(-50%,-50%);}
+        .main_text1{
+            left: 10%;
+            top: 15%;
+            position: absolute;
+            text-align: left;
+            font-size: 50px;
+            font-weight: 700;
+             color: #fff;
+             line-height: 60px;
+        }
+        .main_text2{
+            left: 10%;
+            top: 35%;
+            position: absolute;
+            text-align: left;
+            font-size: 20px;
+            font-weight: 500;
+            color: #fff;
+            line-height: 25px;
+        }
+        .main_btn{
+            display: block;
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+            border: 1px solid #fff;
+            background-size: 14px 14px;
+            margin-top: 70px;
+        }
+        .login_box{
+            background-color: rgba(255, 255, 255, 0.9);
+            height: 570px;
+            width: 420px;
+            left: 55%;
+            top: 15%;
+            position: absolute;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            box-sizing: border-box;
+            padding: 10px 40px;
+            border-radius: 10px;
+        }
+        .login_image { width:100%;}
+        .title {font-weight: bold;font-size: 26px;color: #363636;text-align: left;margin:30px 0px 5px 0px;}
+        .subtitle{
+            font-size: 16px;
+            color: #727272;
+            text-align: left;
+            margin-bottom: 80px;
+            line-height:110%;
+            font-weight: 400;
+        }
+        .login_input{
+            background-color: #ffffff;
+            width: 300px;
+            height: 35px;
+            line-height: 30px;
+            border-radius: 5px;
+            float: left;
+            margin-bottom: 25px;
+        }
+        .input_id {
+            color:#999999;
+            font-size:16px;
+            background-color:rgba(0,0,0,0);
+            border:none;
+            width:250px;
+        }
+        .input_icon {
+            width:20px;
+            line-height:20px;
+            margin-right:20px;
+            float:left;
+            transform: translateY(5px);
+            margin-bottom: 25px;
+        }
+        .input_icon img {
+            width: 18px;
+            line-height: 20px;
+        }
+        .remember {
+            color:#999999;
+            font-size:14px;
+            width: 50%;
+            float: left;
+        }
+        .remember_box {
+            color: #222222;
+            font-size: 14px;
+            float: left;
+            border: 1px solid #222222;
+            border-radius: 15px;
+            width: 30%;
+            height: 27px;
+            line-height: 25px;
+            margin-left: 55px;
+            cursor: pointer;
+        }
+        .find_box{
+            color: #222222;
+            font-size: 14px;
+            width: 50%;
+            float: left;
+            height: 25px;
+            line-height: 25px;
+            cursor:pointer;
+        }
+        .btn_login{
+            width: 170px;
+            height: 50px;
+            background-color: #222222;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 50px;
+            cursor: pointer;
+            text-align: center;
+            margin: 270px auto 0px;
+        }
+        .modal_wrap2{
+            width: 750px;
+            height: 700px;
+            position: absolute;
+            top: 40%;
+            left: 43%;
+            margin: -250px 0 0 -250px;
+            background: white;
+            z-index: 2;
+            box-sizing: border-box;
+            padding: 20px;
+            display:none;
+        }
+            .modal_wrap{
+            display: none;
+            width: 550px;
+            height: 700px;
+            position: absolute;
+            top: 40%;
+            left: 47%;
+            margin: -250px 0 0 -250px;
+            background: white;
+            z-index: 2;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+        .black_bg{
+            display: none;
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            background-color:rgba(0, 0,0, 0.3);
+            top:0;
+            left: 0;
+            z-index: 1;
+        }
+        .modal_close{
+            width: 26px;
+            height: 26px;
+            position: absolute;
+            top: -30px;
+            right: 0;
+        }
+        .modal_close2{
+            width: 26px;
+            height: 26px;
+            position: absolute;
+            top: -30px;
+            right: 0;
+        }
+        .modal_close> a{
+            display: block;
+            width: 100%;
+            height: 100%;
+            /*background:url(/ShippingGate/BOMS/boms_img/modal_close.png);*/
+            text-indent: -9999px;
+        }
+        .modal_title{
+            width: 50%;
+            height: 75px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: #65499f;
+            line-height: 90px;
+            border-bottom: 3px solid #65499f;
+            margin: auto;
+            margin-bottom: 40px;
+        }
+        .modal_title2{
+            width: 50%;
+            height: 75px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: #65499f;
+            line-height: 90px;
+            border-bottom: 3px solid #65499f;
+            margin: auto;
+            margin-bottom: 40px;
+            float:left;
+        }
+        .modal_subtitle{
+            width: 24%;
+            height: 50px;
+            line-height: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            float: left;
+            text-align: left;
+            padding-left: 35px;
+        }
+        .modal_subtitle2{
+            width: fit-content;
+            height: 50px;
+            line-height: 50px;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 190px auto;
+        }
+        .modal_subtitle3{
+            width: fit-content;
+            height: 50px;
+            line-height: 50px;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 110px auto;
+        }
+        .modal_input{
+            width: 60%;
+            height: 30px;
+            border: none;
+            border-bottom: 1px solid;
+            font-size: 14px;
+            float: left;
+            transform: translateY(10px);
+            box-sizing: border-box;
+            padding: 0px 10px;
+        }
+        .modal_list{
+            height:70px;
+            clear:both;
+        }
+        .modal_join{
+            width: 374px;
+            height: 50px;
+            background-color: #65499f;
+            border-radius: 7px;
+            color: white;
+            font-size: 20px;
+            line-height: 50px;
+            cursor: pointer;
+            text-align: center;
+            margin: 45px auto 0px;
+            }
+        .modal_join2{
+            width: 500px;
+            height: 50px;
+            background-color: #65499f;
+            border-radius: 7px;
+            color: white;
+            font-size: 20px;
+            line-height: 50px;
+            cursor: pointer;
+            text-align: center;
+            margin: 45px auto 0px;
+            }
+        .modal_join3{
+            width: 500px;
+            height: 50px;
+            background-color: #65499f;
+            border-radius: 7px;
+            color: white;
+            font-size: 20px;
+            line-height: 50px;
+            cursor: pointer;
+            text-align: center;
+            margin: 113px auto 0px;
+            }
+        .modal_join4{
+            width: 500px;
+            height: 50px;
+            background-color: #65499f;
+            border-radius: 7px;
+            color: white;
+            font-size: 20px;
+            line-height: 50px;
+            cursor: pointer;
+            text-align: center;
+            margin: 45px auto 0px;
+            }
+        .modal_close{
+            width: 16px;
+            height: 16px;
+            transform: translate(-10px, 40px);
+        }
+        .modal_close2{
+        width: 16px;
+        height: 16px;
+        transform: translate(-10px, 40px);
+        }
+        #your_id{
+            color:#4b5bf5;
+            text-decoration:underline;
+        }
+        #show_pw{
+            display:none;
+        }
+
+        .error_box{
+            font-size:12px;
+            color:red;
+            display:none;
+            clear: both;
+            margin-left: 24%;
+        }
+        .remember {
+            color:#999999;
+            font-size:14px;
+            width: 50%;
+            float: left;
+        }
+        .remember_box {
+            color: #222222;
+            font-size: 14px;
+            float: left;
+            border: 1px solid #222222;
+            border-radius: 15px;
+            width: 30%;
+            height: 27px;
+            line-height: 25px;
+            margin-left: 55px;
+            cursor: pointer;
+        }
+
+        .bottom_btn {
+            display:flex;
+            justify-content: space-around;
+        }
+
+        .notice_btn {
+             box-sizing: border-box;
+            padding: 10px 20px;
+            border: 1px solid #999999;
+            border-radius: 20px;
+        }
+        .download_box {
+            display: flex;
+            /* justify-content: space-around; */
+            
+            /* width: 300px; */
+            /* margin: 0 auto; */
+            padding-left: 95px;
+            margin: 35px 0;
+        }
+        .down {
+            object-fit: cover;
+            width: 25px;
+            /* box-sizing: border-box; */
+            height: 20px;
+            /* position: absolute; */
+            margin-top: 17px;
+            margin-right: 7px;
+        }
+        .down > img {
+            width: 100%;
+            height: 100%;
+        }
+        
+
+  
+           
+     
+    </style>
+
+    <script>
+
+        var emialregExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+        var passwardregExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/;
+
+        window.onload = function () {
+            function onClick() {
+                document.querySelector('.modal_wrap').style.display = 'block';
+                document.querySelector('.black_bg').style.display = 'block';
+            }
+            function onClick2() {
+                document.querySelector('.modal_wrap2').style.display = 'block';
+                document.querySelector('.black_bg2').style.display = 'block';
+            }
+            function offClick() {
+                document.querySelector('.modal_wrap').style.display = 'none';
+                document.querySelector('.black_bg').style.display = 'none';
+            }
+            function offClick2() {
+                document.querySelector('.modal_wrap2').style.display = 'none';
+                document.querySelector('.black_bg2').style.display = 'none';
+            }
+
+            document.getElementById('modal_btn').addEventListener('click', onClick);
+            document.getElementById('modal_btn2').addEventListener('click', onClick2);
+            document.querySelector('.modal_close').addEventListener('click', offClick);
+            document.querySelector('.modal_close2').addEventListener('click', offClick2);
+            document.querySelector('.black_bg').addEventListener('click', offClick);
+            document.querySelector('.black_bg2').addEventListener('click', offClick2);
+
+            $("#find_pw").css('border-bottom', '2px solid #979797').css('color', 'black');
+
+        };
+
+        $(document).ready(function () {
+
+            checkFlag();
+        })
+
+        function setCookie(cookieName, value, exdays) {
+            var exdate = new Date();
+            exdate.setDate(exdate.getDate() + exdays);
+            var cookieValue = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toGMTString());
+            document.cookie = cookieName + "=" + cookieValue;
+        }
+
+        function deleteCookie(cookieName) {
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() - 1);
+            document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+        }
+
+        function getCookie(cookieName) {
+            cookieName = cookieName + '=';
+            var cookieData = document.cookie;
+            var start = cookieData.indexOf(cookieName);
+            var cookieValue = '';
+            if (start != -1) {
+                start += cookieName.length;
+                var end = cookieData.indexOf(';', start);
+                if (end == -1) end = cookieData.length;
+                cookieValue = cookieData.substring(start, end);
+            }
+            return unescape(cookieValue);
+        }
+
+        function checkFlag()
+        {
+            var sp_ret_message = $("#sp_ret_message").val();
+            var sp_ret_status = $("#sp_ret_status").val();
+            var flag = $("#flag").val();
+
+            console.log(sp_ret_message);
+            console.log(sp_ret_status);
+
+            console.log(flag);
+            switch (flag) {
+                case "login":
+                    if (sp_ret_status == "Y") {
+                        alert(sp_ret_message);
+                    }
+                    break;
+            }
+            return false;
+        }
+
+        function login()
+        {
+            // 아이디
+            if (!$("#LOGIN_ID").val().trim()) {
+                alert("아이디 입력되지 않았습니다.");
+                $("#LOGIN_ID").focus();
+                return;
+            }
+            // 비밀번호
+            if (!$("#LOGIN_PW").val().trim()) {
+                alert("비밀번호이 입력되지 않았습니다.");
+                $("#LOGIN_PW").focus();
+                return;
+            }
+
+            $("#flag").val("login");
+            $("#form1").submit();
+            return false
+        }
+
+        function goUserCreat()
+        {
+            location.href = "/ShippingGate/Smart/member/MembershipAgreeCommon.aspx";
+        }
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server" style="
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;">
+    <div style="
+    width: 100%;
+    height: 100%;
+    position:relative;">
+        <div style="display:none">
+            <input type="hidden" id="flag" name="flag" value="<%=flag %>" />
+            <input type="hidden" name="" id="CRET_ID-flag" value="N" />
+            <input type="hidden" name="" id="CRET_PW-flag" value="N" />
+            <input type="hidden" name="" id="CRET_PW_CHECK-flag" value="N" />
+            <input type="hidden" name="" id="CRET_EMAIL-flag" value="N" />
+            <input type="hidden" name="" id="sp_ret_message" value="<%=sp_ret_message %>" />
+            <input type="hidden" name="" id="sp_ret_status" value="<%=sp_ret_status%>" />
+        </div>
+
+        <div class="black_bg black_bg2" onclick="modal_reset()"></div>
+
+        <!--아이디/비밀번호 찾기 -->
+        <div class="modal_wrap2">
+            <div class="modal_close2">
+                <img src="/ShippingGate/images/Smart_img/modal_close.png" class="modal_close2" onclick="modal_reset()" style="cursor:pointer"/>
+            </div>
+            <div class="modal_title2" id="find_id" onclick="findid()" style="cursor:pointer;">
+                아이디 찾기
+            </div>
+            <div class="modal_title2" id="find_pw" onclick="findpw()" style="cursor:pointer;">
+                비밀번호 찾기
+            </div>
+            <div id="show_id" style="display:block;">
+                <div class="modal_list">
+                    <div class="modal_subtitle">이름</div>
+                    <input type="text" id="SEARCH_ID_NM" name="SEARCH_ID_NM"  class="modal_input" value="" placeholder="이름을 입력해주세요"/>
+                </div>
+                <div class="modal_list">
+                    <div class="modal_subtitle">이메일</div>
+                    <input type="text" id="SEARCH_ID_EMAIL" name="SEARCH_ID_EMAIL" class="modal_input" value="" placeholder="이메일을 입력해주세요"/>
+                </div>
+                <div class="modal_join2" onclick="show_id()">
+                    <a style="color:white; text-decoration:none;">아이디 찾기</a>
+                </div>
+            </div>
+            <div id="show_pw" style="display:none;">
+                <div class="modal_list">
+                    <div class="modal_subtitle">아이디</div>
+                    <input type="text" id="SEARCH_PW_ID" name="SEARCH_PW_ID" class="modal_input" value="" placeholder="아이디를 입력해주세요"/>
+                </div>
+                <div class="modal_list">
+                    <div class="modal_subtitle">이름</div>
+                    <input type="text" id="SEARCH_PW_NM" name="SEARCH_PW_NM" class="modal_input" value="" placeholder="이름을 입력해주세요"/>
+                </div>
+                <div class="modal_join2" onclick="search_pw()">
+                    <a style="color:white; text-decoration:none;">비밀번호 찾기</a>
+                </div>
+            </div>
+            <div id="find_id_rs" style="display:none;">
+                <div class="modal_list">
+                    <div class="modal_subtitle2">
+                        회원님의 아이디는
+                        <label form="form1" id="your_id">t2lboms</label>
+                        입니다.
+                    </div>
+                </div>
+                <div class="modal_join3" onclick="move_find_pw()">
+                    <a style="color:white; text-decoration:none;">비밀번호 찾기 이동</a>
+                </div>
+            </div>
+            <div id="find_pw_rs" style="display:none;">
+                <div class="modal_list">
+                    <div class="modal_subtitle3">비밀번호를 변경하여 주십시오.</div>
+                </div>
+                <div class="modal_list">
+                    <div class="modal_subtitle">새 비밀번호</div>
+                    <input type="text" id="NEW_PW"  name="NEW_PW" class="modal_input" value="" placeholder="새 비밀번호를 입력해주세요"/>
+                </div>
+                <div class="modal_list">
+                    <div class="modal_subtitle">새 비밀번호 확인</div>
+                    <input type="text" id="NEW_CHECK_PW" name="NEW_CHECK_PW" class="modal_input" value="" placeholder="다시 새 비밀번호를 입력해주세요"/>
+                </div>
+                <div class="modal_join4" onclick="change_pw()">
+                    <a style="color:white; text-decoration:none;">비밀번호 변경</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="login_page">
+            <div class="login_main">
+                    <img src="/images/main/main_background.jpg" class="login_image" />
+                    <div class="main_text_wrap">
+                        <h1 class="main_text1">
+                            SHIPPING GATE
+                            <br>
+                            통합 물류 솔루션을 쉽게
+                        </h1>
+                        <h2 class="main_text2">
+                            통합 물류 서비스를 선도하는 프론티어
+                            <br>
+                            마음을 움직이는 IT서비스를 만들어가겠습니다.
+                        </h2>
+                        <a class="main_btn" href="#"></a>
+                    </div>
+                <div class="login_box">
+                    <div class="title">
+                        WISE PLATEFORM AGENT
+                    </div>
+                    <div class="subtitle">
+                        Agent Information
+                        Management Platform
+                    </div>
+                    <div>
+                        <div class="input_icon">
+                            <img src="/ShippingGate/images/Smart_img/user_icon.png" />
+                        </div>
+                        <div class="login_input">
+                            <input type="text" id="LOGIN_ID" name="LOGIN_ID" class="input_id" placeholder=""/>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="input_icon">
+                            <img src="/ShippingGate/images/Smart_img/pwd_icon.png" />
+                        </div>
+                        <div class="login_input">
+                            <input type="password" id="LOGIN_PW" name="LOGIN_PW" class="input_id" />
+                        </div>
+                    </div>
+                    <div>
+                        <div class="remember_box join" onclick="goUserCreat();">
+                            회원가입
+                        </div>
+                        <div class="find_box" id="modal_btn2" onclick="" style="cursor:pointer;">
+                            아이디/비밀번호 찾기
+                        </div>
+                    </div>
+
+                   
+                    <div class="btn_login" id="LoginBtn" onclick="login()">
+                        <a style="color:white; text-decoration:none;">LOGIN</a>
+                        <dx:ASPxTextBox ID="_furl" runat="server" ClientInstanceName="_furl" ClientVisible="false"></dx:ASPxTextBox>
+                    </div>
+                    <div class="download_box" style="display:flex;">
+                        <div class="down">
+                            <img src="/images/main/down_img.png" alt="Alternate Text" />
+                        </div>
+                        <p class="download"><a href="http://shippinggate.com/content/downloads/shippinggate_manual.pptx" target="_new" style="color:black; text-decoration:none;">메뉴얼 다운로드</a></p>
+                        <!-- <%--<p class="download"><a href="http://shippinggate.com/deploy/devexpress15.2/setup_devexpress15_2.exe" target="_new">설치2</a></p>    --%> -->
+                    </div>
+
+                     <!-- <div class="bottom_btn">             
+                        <div class="notice_btn" id="LoginBtn">
+                            <a href="/ShippingGate/Smart/member/LoginMembership.aspx" style="color:black; text-decoration:none;  cursor:pointer">
+                                <span>고객지원</span>
+                            </a>                           
+                        </div>
+
+                        <div class="notice_btn" id="LoginBtn">
+                            <a href="http://www.t2l.co.kr/"target="_blank" style="color:black; text-decoration:none; cursor:pointer;">
+                                <span>T2L홈페이지</span>
+                            </a>                        
+                        </div>
+            
+                    </div> -->
+                </div>
+
+          
+            </div>
+
+        </div>
+    </form>
+</body>
+</html>
